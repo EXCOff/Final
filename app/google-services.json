@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137434317622",
+    "project_id": "final-3fd73",
+    "storage_bucket": "final-3fd73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137434317622:android:8ced9bdc1af37089eda997",
+        "android_client_info": {
+          "package_name": "com.santiexcofier.afinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCymzsjZZmAOZjnAhJ_wpOaGD56sU5qMi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

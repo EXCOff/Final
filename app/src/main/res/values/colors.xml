@@ -1,0 +1,7 @@
+<resources>
+
+    <color name="colorPrimary">#2196F3</color>       <!-- Azul claro -->
+    <color name="colorPrimaryDark">#1976D2</color>   <!-- Azul más oscuro -->
+    <color name="colorAccent">#FFFFFF</color>        <!-- Blanco -->
+
+</resources>
