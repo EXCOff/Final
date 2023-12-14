@@ -27,7 +27,7 @@
             <!-- Intent filters, configuración adicional, etc. -->
         </activity>
 
-
+        <activity android:name=".SignupActivity" />
 
     </application>
 

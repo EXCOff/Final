@@ -1,4 +1,3 @@
-// LoginActivity.java
 package com.santiexcofier.afinal;
 
 import android.content.Intent;
@@ -51,15 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         signupButton.setOnClickListener(view -> {
-            String email = emailEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-            String confirmPassword = confirmPasswordEditText.getText().toString();
-
-            if (!email.isEmpty() && !password.isEmpty() && password.equals(confirmPassword)) {
-                signUp(email, password);
-            } else {
-                showToast("Por favor, completa todos los campos y asegúrate de que las contraseñas coincidan.");
-            }
+            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
         });
 
         forgotPasswordTextView.setOnClickListener(view -> {
@@ -90,20 +81,6 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         // Fallo en el inicio de sesión
                         showToast("Inicio de sesión fallido. Verifica tus credenciales.");
-                    }
-                });
-    }
-
-    // Método para realizar el registro de usuario
-    private void signUp(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        // Registro exitoso
-                        showToast("Registro exitoso. Ahora puedes iniciar sesión.");
-                    } else {
-                        // Fallo en el registro
-                        showToast("Registro fallido. Intenta nuevamente.");
                     }
                 });
     }
