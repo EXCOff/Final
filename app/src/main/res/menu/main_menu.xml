@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Elemento de menú para agregar tarea -->
+    <item
+        android:id="@+id/action_add_task"
+        android:title="Agregar Tarea"
+        android:icon="@android:drawable/ic_menu_add"
+        app:showAsAction="ifRoom" />
+
+    <!-- Elemento de menú para acceder al perfil -->
+    <item
+        android:id="@+id/action_profile"
+        android:title="Perfil"
+        android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="ifRoom" />
+
+</menu>

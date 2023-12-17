@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +16,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText emailEditText;
     private EditText passwordEditText;
-    private EditText confirmPasswordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +28,10 @@ public class LoginActivity extends AppCompatActivity {
         // Obtener referencias de vistas
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
-        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
 
         Button loginButton = findViewById(R.id.loginButton);
         Button signupButton = findViewById(R.id.signupButton);
-        TextView forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView);
+        Button forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
 
         // Configuración de eventos de clic
         loginButton.setOnClickListener(view -> {
@@ -53,14 +49,10 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, SignupActivity.class));
         });
 
-        forgotPasswordTextView.setOnClickListener(view -> {
-            String email = emailEditText.getText().toString();
-
-            if (!email.isEmpty()) {
-                resetPassword(email);
-            } else {
-                showToast("Por favor, ingresa tu correo electrónico para restablecer la contraseña.");
-            }
+        // Evento de clic para el botón "¿Olvidaste la contraseña?"
+        forgotPasswordButton.setOnClickListener(view -> {
+            // Abre la actividad ForgotPasswordActivity
+            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
         });
     }
 
@@ -81,20 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         // Fallo en el inicio de sesión
                         showToast("Inicio de sesión fallido. Verifica tus credenciales.");
-                    }
-                });
-    }
-
-    // Método para restablecer la contraseña
-    private void resetPassword(String email) {
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Correo de restablecimiento enviado con éxito
-                        showToast("Correo de restablecimiento enviado. Verifica tu correo electrónico.");
-                    } else {
-                        // Fallo en el envío del correo de restablecimiento
-                        showToast("Error al enviar el correo de restablecimiento. Verifica tu correo electrónico.");
                     }
                 });
     }

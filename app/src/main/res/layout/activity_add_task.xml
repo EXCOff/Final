@@ -1,23 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".AddTaskActivity">
 
-    <EditText
-        android:id="@+id/editTextTaskDescription"
+    <TextView
+        android:id="@+id/addTaskTitleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descripción de la tarea"
+        android:text="Agregar Tarea"
+        android:textSize="24sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:textAlignment="center"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/taskNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addTaskTitleTextView"
         android:layout_marginTop="16dp"
-        android:textSize="16sp"
-        android:padding="8dp" />
+        android:hint="Nombre de la Tarea"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/taskDescriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/taskNameEditText"
+        android:layout_marginTop="8dp"
+        android:hint="Descripción"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/taskDateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/taskDescriptionEditText"
+        android:layout_marginTop="8dp"
+        android:hint="Fecha Limite"
+        android:inputType="text" />
 
     <Button
-        android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/saveTaskButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agregar Tarea"
-        android:layout_below="@+id/editTextTaskDescription"
-        android:layout_marginTop="16dp"/>
+        android:text="Guardar Tarea"
+        android:textColor="@android:color/white"
+        android:background="@android:color/holo_blue_light"
+        android:layout_below="@+id/taskDateEditText"
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>

@@ -1,68 +1,69 @@
 package com.santiexcofier.afinal;
+
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.santiexcofier.afinal.R;
+import com.santiexcofier.afinal.Task;
+
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db;
+    private EditText taskNameEditText;
     private EditText taskDescriptionEditText;
+    private EditText taskDateEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        // Inicializar Firestore
-        db = FirebaseFirestore.getInstance();
+        // Obtener referencias de vistas
+        taskNameEditText = findViewById(R.id.taskNameEditText);
+        taskDescriptionEditText = findViewById(R.id.taskDescriptionEditText);
+        taskDateEditText = findViewById(R.id.taskDateEditText);
 
-        // Referenciar vistas desde el diseño
-        taskDescriptionEditText = findViewById(R.id.editTextTaskDescription);
-        Button addTaskButton = findViewById(R.id.addTaskButton);
+        Button saveTaskButton = findViewById(R.id.saveTaskButton);
 
-        // Manejar clic en el botón de agregar tarea
-        addTaskButton.setOnClickListener(view -> {
-            // Obtener la descripción de la tarea ingresada por el usuario
-            String taskDescription = taskDescriptionEditText.getText().toString();
-
-            // Verificar que la descripción no esté vacía
-            if (!taskDescription.isEmpty()) {
-                // Agregar la tarea a Firestore
-                addTaskToFirestore(taskDescription);
-            } else {
-                // Mostrar un mensaje de error si la descripción está vacía
-                Toast.makeText(AddTaskActivity.this, "Por favor, ingresa una descripción para la tarea.", Toast.LENGTH_SHORT).show();
+        // Configurar evento de clic para el botón de guardar tarea
+        saveTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveTask();
             }
         });
     }
 
-    // Método para agregar una tarea a Firestore
-    private void addTaskToFirestore(String taskDescription) {
-        // Crear un mapa con la descripción de la tarea
-        Map<String, Object> tarea = new HashMap<>();
-        tarea.put("descripcion", taskDescription);
+    private void saveTask() {
+        // Aquí puedes agregar la lógica para guardar la tarea en Firestore
+        // Puedes obtener los valores de los EditText y crear una nueva instancia de la clase Task
 
-        // Referencia a la colección "tareas" en Firestore
-        db.collection("tareas")
-                .add(tarea)
-                .addOnSuccessListener(documentReference -> {
-                    // Documento agregado exitosamente
-                    // Puedes mostrar un mensaje al usuario o realizar otras acciones
-                    Toast.makeText(AddTaskActivity.this, "Tarea agregada exitosamente.", Toast.LENGTH_SHORT).show();
-                    finish(); // Cerrar la actividad actual
-                })
-                .addOnFailureListener(e -> {
-                    // Error al agregar el documento
-                    // Puedes mostrar un mensaje de error al usuario o realizar otras acciones
-                    Toast.makeText(AddTaskActivity.this, "Error al agregar la tarea. Inténtalo de nuevo.", Toast.LENGTH_SHORT).show();
-                });
+        String taskName = taskNameEditText.getText().toString();
+        String taskDescription = taskDescriptionEditText.getText().toString();
+        String taskDate = taskDateEditText.getText().toString();
+
+        // Validación básica
+        if (taskName.isEmpty() || taskDescription.isEmpty() || taskDate.isEmpty()) {
+            showToast("Completa todos los campos");
+            return;
+        }
+
+        // Crear una nueva instancia de la clase Task
+        Task newTask = new Task(taskName, taskDescription, taskDate);
+
+        // Agregar la lógica para guardar la tarea en Firestore
+        // (Puedes usar el método addTaskToFirestore que definimos anteriormente)
+
+        // Finalizar la actividad después de guardar la tarea
+        finish();
+    }
+
+    // Método para mostrar mensajes Toast
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

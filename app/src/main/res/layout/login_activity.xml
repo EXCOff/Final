@@ -33,21 +33,11 @@
         android:inputType="textPassword"
         android:backgroundTint="@color/colorAccent" />
 
-    <EditText
-        android:id="@+id/confirmPasswordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordEditText"
-        android:layout_marginTop="8dp"
-        android:hint="Confirmar Contraseña"
-        android:inputType="textPassword"
-        android:backgroundTint="@color/colorAccent" />
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/confirmPasswordEditText"
+        android:layout_below="@+id/passwordEditText"
         android:layout_marginTop="16dp"
         android:text="Iniciar Sesión"
         android:backgroundTint="@color/colorPrimary" />
@@ -61,14 +51,13 @@
         android:text="Registrarse"
         android:backgroundTint="@color/colorPrimary" />
 
-    <TextView
-        android:id="@+id/forgotPasswordTextView"
+    <Button
+        android:id="@+id/forgotPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="¿Olvidaste la contraseña?"
         android:layout_below="@+id/signupButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="¿Olvidaste tu contraseña?"
-        android:textColor="@color/colorAccent" />
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>

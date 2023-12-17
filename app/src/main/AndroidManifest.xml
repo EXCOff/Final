@@ -29,6 +29,12 @@
 
         <activity android:name=".SignupActivity" />
 
+        <activity android:name=".ForgotPasswordActivity" />
+
+        <activity android:name=".AddTaskActivity" />
+
+        <activity android:name=".ProfileActivity" />
+
     </application>
 
 </manifest>
