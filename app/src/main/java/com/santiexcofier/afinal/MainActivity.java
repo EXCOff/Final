@@ -38,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Configurar el RecyclerView y el adaptador
         tasksList = new ArrayList<>();
-        taskAdapter = new TaskAdapter(tasksList);
+        taskAdapter = new TaskAdapter(tasksList, new TaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Manejar clic en elemento de la lista
+                Task selectedTask = tasksList.get(position);
+                openTaskDetailActivity(selectedTask);
+            }
+        });
         tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         tasksRecyclerView.setAdapter(taskAdapter);
@@ -66,11 +73,12 @@ public class MainActivity extends AppCompatActivity {
                 // Iterar sobre los documentos obtenidos
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     // Obtener la descripción y fecha de la tarea desde el documento
+                    String taskId = document.getId();
                     String taskDescription = document.getString("descripcion");
                     String taskDate = document.getString("date");
 
                     // Crear una instancia de la clase Task y agregarla a la lista
-                    Task taskObject = new Task(taskDescription, taskDate);
+                    Task taskObject = new Task(taskId, taskDescription, taskDate);
                     tasksList.add(taskObject);
                 }
 
@@ -115,9 +123,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, ProfileActivity.class));
     }
 
-
     public void openAddTaskActivity(View view) {
         // Aquí puedes agregar la lógica para abrir la actividad de agregar tarea
         startActivity(new Intent(this, AddTaskActivity.class));
+    }
+
+    // Método para abrir la actividad de ver tareas al hacer clic en el botón
+    public void openViewTasksActivity(View view) {
+        startActivity(new Intent(this, ViewTasksActivity.class));
+    }
+
+    // Método para abrir la actividad de detalle de tarea
+    private void openTaskDetailActivity(Task task) {
+        Intent intent = new Intent(this, TaskDetailActivity.class);
+        intent.putExtra("task", task);
+        startActivity(intent);
     }
 }

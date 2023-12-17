@@ -13,9 +13,10 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     private List<Task> tasksList;
+    private OnItemClickListener onItemClickListener;
 
     // Constructor
-    public TaskAdapter(List<Task> tasksList) {
+    public TaskAdapter(List<Task> tasksList, OnItemClickListener onItemClickListener) {
         this.tasksList = tasksList;
     }
 
@@ -27,23 +28,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return new TaskViewHolder(view);
     }
 
-
-    // Interfaz para manejar clics en los elementos del RecyclerView
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
-
-    // Variable miembro para almacenar el listener
-    private OnItemClickListener onItemClickListener;
-
-    // Método para establecer el listener
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-
-
-
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         // Obtener la tarea en la posición actual
@@ -52,6 +36,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Configurar los elementos de la vista con los datos de la tarea
         holder.taskNameTextView.setText(currentTask.getDescription());
         holder.taskDateTextView.setText(currentTask.getDate());
+
+        // Configurar el clic en el elemento
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (onItemClickListener != null && adapterPosition != RecyclerView.NO_POSITION) {
+                    onItemClickListener.onItemClick(adapterPosition);
+                }
+            }
+        });
     }
 
     @Override
@@ -70,5 +65,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskNameTextView = itemView.findViewById(R.id.taskDescriptionTextView);
             taskDateTextView = itemView.findViewById(R.id.taskDateTextView);
         }
+    }
+
+    // Interfaz para manejar clics en los elementos del RecyclerView
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // Método para establecer el listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 }

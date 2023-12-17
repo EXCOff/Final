@@ -6,16 +6,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.santiexcofier.afinal.R;
-import com.santiexcofier.afinal.Task;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddTaskActivity extends AppCompatActivity {
 
     private EditText taskNameEditText;
     private EditText taskDescriptionEditText;
     private EditText taskDateEditText;
+
+    // Referencia a la colección "tareas" en Firestore
+    private CollectionReference tasksRef = FirebaseFirestore.getInstance().collection("tareas");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void saveTask() {
-        // Aquí puedes agregar la lógica para guardar la tarea en Firestore
-        // Puedes obtener los valores de los EditText y crear una nueva instancia de la clase Task
-
+        // Obtener los valores de los EditText
         String taskName = taskNameEditText.getText().toString();
         String taskDescription = taskDescriptionEditText.getText().toString();
         String taskDate = taskDateEditText.getText().toString();
@@ -53,13 +54,31 @@ public class AddTaskActivity extends AppCompatActivity {
         }
 
         // Crear una nueva instancia de la clase Task
-        Task newTask = new Task(taskName, taskDescription, taskDate);
+        Task newTask = createTask(taskName, taskDescription, taskDate);
 
-        // Agregar la lógica para guardar la tarea en Firestore
-        // (Puedes usar el método addTaskToFirestore que definimos anteriormente)
+        // Agregar la tarea a Firestore
+        addTaskToFirestore(newTask);
 
         // Finalizar la actividad después de guardar la tarea
         finish();
+    }
+
+    // Método para crear una instancia de la clase Task
+    private Task createTask(String name, String description, String date) {
+        // Utiliza el constructor correspondiente en la clase Task
+        return new Task(name, description, date);
+    }
+
+    // Método para agregar la tarea a Firestore
+    private void addTaskToFirestore(Task task) {
+        // Agregar la tarea a Firestore
+        tasksRef.add(task)
+                .addOnSuccessListener(documentReference -> {
+                    showToast("Tarea guardada exitosamente");
+                })
+                .addOnFailureListener(e -> {
+                    showToast("Error al guardar la tarea");
+                });
     }
 
     // Método para mostrar mensajes Toast

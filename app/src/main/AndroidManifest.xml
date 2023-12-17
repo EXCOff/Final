@@ -35,6 +35,10 @@
 
         <activity android:name=".ProfileActivity" />
 
+        <activity android:name=".ViewTasksActivity" />
+
+        <activity android:name=".TaskDetailActivity" />
+
     </application>
 
 </manifest>
