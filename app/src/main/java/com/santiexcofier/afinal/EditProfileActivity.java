@@ -35,9 +35,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void guardarCambios() {
-        // Aquí puedes agregar la lógica para guardar los cambios en la base de datos o en algún otro lugar
-        // Puedes obtener los nuevos datos usando nuevoNombreEditText.getText().toString() y nuevoCorreoEditText.getText().toString()
-        // Después de guardar los cambios, podrías cerrar la actividad si es necesario
+        // Lógica para guardar los cambios en la base de datos
+
         finish();
     }
 }

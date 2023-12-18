@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         editarPerfilButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Aquí puedes agregar la lógica para abrir la actividad de edición de perfil
+                // Lógica para abrir la actividad de edición de perfil
                 startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
             }
         });

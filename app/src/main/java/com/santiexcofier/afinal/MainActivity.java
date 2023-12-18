@@ -111,21 +111,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (itemId == R.id.action_profile) {
             // Acceder al perfil
-            showToast("Acceder al perfil desde el menú");
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void openProfileActivity(View view) {
-        // Aquí puedes agregar la lógica para abrir la actividad de perfil
-        startActivity(new Intent(this, ProfileActivity.class));
-    }
-
-    public void openAddTaskActivity(View view) {
-        // Aquí puedes agregar la lógica para abrir la actividad de agregar tarea
-        startActivity(new Intent(this, AddTaskActivity.class));
     }
 
     // Método para abrir la actividad de ver tareas al hacer clic en el botón
@@ -138,5 +128,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TaskDetailActivity.class);
         intent.putExtra("task", task);
         startActivity(intent);
+    }
+
+    // Método para abrir la actividad de perfil
+    public void openProfileActivity(View view) {
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
+
+    // Método para abrir la actividad de agregar tarea
+    public void openAddTaskActivity(View view) {
+        startActivity(new Intent(this, AddTaskActivity.class));
     }
 }
